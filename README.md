@@ -1,7 +1,7 @@
 ## LISTA DE OBJETIVOS
-- [ ] Tela de título
-- [ ] Tela do jogo
-- [ ] Tela de fim de jogo
+- [x] Tela de título
+- [x] Tela do jogo
+- [x] Tela de fim de jogo
 - [ ] Personagem principal
 - [ ] Inimigos
 - [ ] Projéteis
