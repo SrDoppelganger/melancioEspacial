@@ -14,13 +14,13 @@ void setup(){
 void draw(){
   switch(cena){
     case "titulo":
-      telaTitulo();
+      //lógica da tela de inicio
       break;
      case "jogo":
-       telaJogo();
+       //lógica do jogo
        break;
      case "fim":
-       telaFim();
+       //lógica de Game Over
        break;
   }
 }
@@ -58,6 +58,10 @@ void telaFim(){
   
   textSize(64);
   text("GAME OVER",250,250);
+  
+  textFont(font);
+  textSize(32);
+  text("pressione espaço para continuar",250,500);
 }
 
 void keyReleased(){
@@ -67,18 +71,18 @@ void keyReleased(){
   if(cena=="titulo"){
     //começa o jogo quando a tecla de espaço é apertada
     if(key == 32){
-      cena = "jogo";
+      telaJogo();
     }
   }
   else if(cena=="jogo"){
     //apenas para teste
     if(key == 32){
-      cena = "fim";
+      telaFim();
     }
   }
   else if(cena=="fim"){
      if(key == 32){
-      cena = "titulo";
+      telaTitulo();
     }
   }
   
