@@ -5,23 +5,14 @@ jogador player;
 
 
 
-//imagens/sprites
-PImage spritesJogador[];
-PImage spritesInimigo[];
-int framesJogador;
-int frameAtual;
 
 
 void setup(){
   size(500,650);
-  
-  framesJogador = 1;
-  spritesJogador = new PImage[framesJogador];
-  for(int i = 0; i<framesJogador;i++){
-    spritesJogador[i]=loadImage("player/sprite_"+i+".png");
-  }
-  
+  frameRate(30);
+    
   player = new jogador();
+  player.carregarSprites();
   
   font = createFont("PixelOperator.ttf", 128);
   boldFont = createFont("PixelOperator-Bold.ttf", 128);
@@ -36,8 +27,8 @@ void draw(){
       break;
      case "jogo":
        background(bg[0],bg[1],bg[2]);
-       inputJogador();
-       drawJogador();
+       player.inputJogador();
+       player.drawJogador();
        break;
      case "fim":
        //lógica de Game Over
@@ -116,44 +107,3 @@ void verificarCena(boolean[] keys){
 
 //passar para a classe jogador dps :9
 //colisão do jogador
-float tamJogador = 32;
-float jogadorX = 250;
-float jogadorY = 550;
-
-//posição inicial do jogador
-float x_inicial = jogadorX;
-float y_inicial = jogadorY;
-
-//var de velocidade do jogador
-float velJogador = 5;
-float jogadorXV = 0;
-float jogadorYV = 0;
-
-//var de estados
-boolean atirando = false;
-boolean morto = false;
-
-void inputJogador(){
-  
-  if(!morto){
-    if(keys[LEFT] && jogadorX > 1){
-      jogadorXV = -velJogador;
-    }
-    else if(keys[RIGHT] && jogadorX < 464){
-      jogadorXV = +velJogador;
-    }
-    else{
-      jogadorXV = 0;
-    }
-    
-  }
-  
-}
-
-void drawJogador(){
-  jogadorX += jogadorXV;
-  jogadorY += jogadorYV;
-  
-  //trocar por sprite
-  rect(jogadorX, jogadorY, tamJogador,tamJogador);
-}
