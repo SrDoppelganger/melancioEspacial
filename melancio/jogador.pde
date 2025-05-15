@@ -22,7 +22,6 @@ int framesJogador;
 int frameAtual = 0;
 
 public class jogador{
-  
   //carrega os sprites no setup para evitar problemas de performance
   void carregarSprites(){
     framesJogador = 4;
@@ -53,7 +52,9 @@ public class jogador{
       }
   }
   
-  void drawJogador(){
+ void drawJogador(){
+    background(bg[0],bg[1],bg[2]);
+    
     jogadorX += jogadorXV;
     jogadorY += jogadorYV;
  
@@ -63,6 +64,13 @@ public class jogador{
       image(sprites[frameAtual], jogadorX,jogadorY);
     }
     image(sprites[0], jogadorX,jogadorY);
-  }
-
+ }
+  
+ float getX(){
+   return jogadorX + 48;
+ } 
+ float getY(){
+   return jogadorY;
+ } 
+ 
 }

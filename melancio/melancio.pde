@@ -3,9 +3,8 @@ String cena;
 int[] bg = {0,0,17};
 jogador player;
 
-
-
-
+//armazena as balas instanciadas
+ArrayList<bala> listaBalas;
 
 void setup(){
   size(500,650);
@@ -13,6 +12,8 @@ void setup(){
     
   player = new jogador();
   player.carregarSprites();
+  
+  listaBalas = new ArrayList<bala>();
   
   font = createFont("PixelOperator.ttf", 128);
   boldFont = createFont("PixelOperator-Bold.ttf", 128);
@@ -26,9 +27,9 @@ void draw(){
       //lógica da tela de inicio
       break;
      case "jogo":
-       background(bg[0],bg[1],bg[2]);
        player.inputJogador();
        player.drawJogador();
+       atirar();
        break;
      case "fim":
        //lógica de Game Over
@@ -77,12 +78,23 @@ void telaFim(){
   text("pressione espaço para continuar",250,500);
 }
 
+void atirar(){
+  for(bala aBullet : listaBalas){
+    aBullet.renderizar();
+    aBullet.mover(); 
+  }
+}
+
 //vetor que verifica se uma tecla está sendo pressionada
 boolean[] keys = new boolean[256];
 
 void keyPressed(){
   keys[keyCode] = true;
   verificarCena(keys);
+  
+  if(keys[90] && cena == "jogo"){
+    listaBalas.add(new bala(player.getX(), player.getY()));
+  }
 }
 
 void keyReleased(){
@@ -104,6 +116,3 @@ void verificarCena(boolean[] keys){
      telaTitulo();
   }
 }
-
-//passar para a classe jogador dps :9
-//colisão do jogador
