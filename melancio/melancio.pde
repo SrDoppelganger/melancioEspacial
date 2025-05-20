@@ -1,6 +1,7 @@
 
 //variaveis de classes 
 Player p1;
+Enemy dummy;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
 
@@ -30,10 +31,14 @@ void setup(){
     playerSprites[i] = loadImage("data/Player/sprite_"+i+".png");
   }
   
- 
+  
   p1 = new Player(220,480);
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
+  
+  //DEBUG
+  dummy = new Enemy(width/2,50);
+  enemyList.add(dummy);
   
   cena = "titulo";
 }
@@ -64,8 +69,7 @@ void gameLoop(){
   p1.move();
   bulletLogic();
   
-
-
+  enemyLogic();
 }
 
 void titleScreen(){
@@ -118,6 +122,12 @@ void bulletLogic(){
       //somente para teste
       pontos++;
     }
+  }
+}
+
+void enemyLogic(){
+  for(Enemy anEnemy : enemyList){
+    anEnemy.render();
   }
 }
 
