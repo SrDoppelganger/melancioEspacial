@@ -20,7 +20,7 @@ void setup(){
     playerSprites[i] = loadImage("data/Player/sprite_"+i+".png");
   }
   
-  p1 = new Player(220,520);
+  p1 = new Player(220,480);
   bulletList = new ArrayList<Bullet>();
 }
 
@@ -34,6 +34,8 @@ void gameLoop(){
   
   p1.render();
   p1.move();
+  
+  println(p1.x);
   
   //loop que armazena balas
   for(Bullet aBullet : bulletList){
@@ -61,7 +63,8 @@ void keyPressed(){
     p1.movingRight = true;
   }
   if(key == 'z'){
-    bulletList.add(new Bullet(p1.x + 20,p1.y));
+    bulletList.add(new Bullet(p1.x + 45,p1.y + 5));
+    p1.shootingAnim();
   }
 }
 
@@ -71,5 +74,9 @@ void keyReleased(){
   }
   if(keyCode == RIGHT){
     p1.movingRight = false;
+  }
+  if(key == 'z'){
+    //reseta animação de atirar
+    p1.currFrame = 0;
   }
 }

@@ -14,7 +14,7 @@ boolean movingRight;
 
 //variaveis de Sprites
 int currFrame;
-
+//loopFrames <--variavel para mudar animações
 
 //constructor (ngc que inicializa variaveis)
 Player(int startingX, int startingY){
@@ -34,23 +34,36 @@ Player(int startingX, int startingY){
 
  //renderiza o jogador na tela
  void render(){
-   rect(x,y,playerWidth,playerHeight);
    image(playerSprites[currFrame],x,y);
  }
 
  void move(){
+   
+   checkCollision();
+   
    if(movingLeft == true){
      x -= speed;
    }
    if(movingRight == true){
      x += speed;
    }
-   
+ }
+ 
+ void checkCollision(){
+   if(x >= 390){
+     movingRight = false;
+   }
+   if(x <= 0){
+     movingLeft = false;
+   }
+ }
+ 
+ //toca a animação de atirar
+ void shootingAnim(){
    currFrame++;
    if(currFrame == playerFrames){
      currFrame = 0;
    }
  }
-
 
 }
