@@ -6,7 +6,7 @@ class Bullet{
   int size;
   
   int speed;
-  //color[]
+  int[] bulletColor;
   
   boolean foraDeTela;
   
@@ -17,11 +17,12 @@ class Bullet{
     
     size = 8;
     speed = 15;
+    bulletColor = new int[]{255,255,0};
     foraDeTela = false;
   }
   
   void render(){
-    //fill(color[0],color[1],color[2])
+    fill(bulletColor[0],bulletColor[1],bulletColor[2]);
     circle(x,y,size);
   }
   

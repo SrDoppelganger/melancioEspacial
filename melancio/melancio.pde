@@ -1,6 +1,7 @@
 
 //variaveis de classes 
 Player p1;
+ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
 
 //variaveis de imagens
@@ -29,8 +30,10 @@ void setup(){
     playerSprites[i] = loadImage("data/Player/sprite_"+i+".png");
   }
   
+ 
   p1 = new Player(220,480);
   bulletList = new ArrayList<Bullet>();
+  enemyList = new ArrayList<Enemy>();
   
   cena = "titulo";
 }
@@ -54,29 +57,14 @@ void gameLoop(){
   
   textSize(24);
   textAlign(LEFT);
+  fill(255);
   text("pontuação: "+nf(pontos,4),5,20);
   
   p1.render();
   p1.move();
+  bulletLogic();
   
-  
-  //loop que armazena balas
-  for(Bullet aBullet : bulletList){
-    aBullet.render();
-    aBullet.move();
-    aBullet.checkScreen();
-  }
-  
-  //loop que remove balas
-  for(int i = bulletList.size()-1; i>=0; i--){
-    Bullet aBullet = bulletList.get(i); 
-    
-    if(aBullet.foraDeTela == true){
-      bulletList.remove(aBullet);
-      //somente para teste
-      pontos++;
-    }
-  }
+
 
 }
 
@@ -111,6 +99,26 @@ void gameOverScreen(){
   
   fill(255);
   text("pressione espaço para continuar",width/2,550);
+}
+
+void bulletLogic(){
+  //loop que armazena balas
+  for(Bullet aBullet : bulletList){
+    aBullet.render();
+    aBullet.move();
+    aBullet.checkScreen();
+  }
+  
+  //loop que remove balas
+  for(int i = bulletList.size()-1; i>=0; i--){
+    Bullet aBullet = bulletList.get(i); 
+    
+    if(aBullet.foraDeTela == true){
+      bulletList.remove(aBullet);
+      //somente para teste
+      pontos++;
+    }
+  }
 }
 
 void keyPressed(){
