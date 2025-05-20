@@ -16,7 +16,7 @@ void setup(){
 
 void draw(){
  gameLoop();
-  
+ println(bulletList.size());
 }
 
 void gameLoop(){
@@ -29,6 +29,16 @@ void gameLoop(){
   for(Bullet aBullet : bulletList){
     aBullet.render();
     aBullet.move();
+    aBullet.checkScreen();
+  }
+  
+  //loop que remove balas
+  for(int i = bulletList.size()-1; i>=0; i--){
+    Bullet aBullet = bulletList.get(i); 
+    
+    if(aBullet.foraDeTela == true){
+      bulletList.remove(aBullet);
+    }
   }
 
 }
@@ -41,8 +51,7 @@ void keyPressed(){
     p1.movingRight = true;
   }
   if(key == 'z'){
-    bulletList.add(new Bullet(p1.x,p1.y));
-    println(bulletList.size());
+    bulletList.add(new Bullet(p1.x + 20,p1.y));
   }
 }
 

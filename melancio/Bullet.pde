@@ -8,6 +8,7 @@ class Bullet{
   int speed;
   //color[]
   
+  boolean foraDeTela;
   
   //constructor
   Bullet(int startingX, int startingY){
@@ -16,6 +17,7 @@ class Bullet{
     
     size = 8;
     speed = 15;
+    foraDeTela = false;
   }
   
   void render(){
@@ -25,6 +27,12 @@ class Bullet{
   
   void move(){
     y -= speed;
+  }
+  
+  void checkScreen(){
+    if (y < 0){
+      foraDeTela = true;
+    }
   }
 
 }
