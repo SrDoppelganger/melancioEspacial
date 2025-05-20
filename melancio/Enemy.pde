@@ -6,6 +6,9 @@ class Enemy{
   int enmWidth;
   int enmHeight;
   
+  //variaveis de colisão
+  int left,right,top,bottom;
+  
   //constructor
   Enemy(int startingX,int startingY){
     x = startingX;
@@ -13,6 +16,12 @@ class Enemy{
     
     enmWidth = 30;
     enmHeight = 30;
+    
+    //lembrar de colocar isso na função move() dps ;3
+    left = x - enmWidth/2;
+    right = x + enmWidth/2;
+    top = y - enmHeight/2;
+    bottom = y + enmHeight/2;
   }
   
   void render(){

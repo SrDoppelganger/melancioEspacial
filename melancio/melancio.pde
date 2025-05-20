@@ -25,6 +25,7 @@ void setup(){
   fontBold = createFont("PixelOperator-Bold.ttf",64);
   
   //carrega os sprites do jogador no inicio do jogo
+  //fazer uma função dedicada pra isso dps :3c
   playerFrames = 4;
   playerSprites = new  PImage[playerFrames];
   for(int i = 0; i<playerFrames; i++){

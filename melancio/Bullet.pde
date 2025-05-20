@@ -10,6 +10,9 @@ class Bullet{
   
   boolean foraDeTela;
   
+  //variaveis de colisão (limites do tamanho da bala)
+  int left,right,top,bottom;
+  
   //constructor
   Bullet(int startingX, int startingY){
     x = startingX;
@@ -19,6 +22,11 @@ class Bullet{
     speed = 15;
     bulletColor = new int[]{255,255,0};
     foraDeTela = false;
+    
+    left = x - size/2;
+    right = x + size/2;
+    top = y - size/2;
+    bottom = y + size/2;
   }
   
   void render(){
@@ -28,6 +36,11 @@ class Bullet{
   
   void move(){
     y -= speed;
+    
+    left = x - size/2;
+    right = x + size/2;
+    top = y - size/2;
+    bottom = y + size/2;
   }
   
   void checkScreen(){
