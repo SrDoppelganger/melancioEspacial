@@ -1,118 +1,56 @@
-PFont font, boldFont;
-String cena;
-int[] bg = {0,0,17};
-jogador player;
 
-//armazena as balas instanciadas
-ArrayList<bala> listaBalas;
+//variaveis
+Player p1;
+
+ArrayList<Bullet> bulletList;
+
 
 void setup(){
-  size(500,650);
-  frameRate(30);
-    
-  player = new jogador();
-  player.carregarSprites();
+  size(480,600);
   
-  listaBalas = new ArrayList<bala>();
+  p1 = new Player(220,520);
   
-  font = createFont("PixelOperator.ttf", 128);
-  boldFont = createFont("PixelOperator-Bold.ttf", 128);
-  
-  telaTitulo();
+  bulletList = new ArrayList<Bullet>();
 }
+
 
 void draw(){
-  switch(cena){
-    case "titulo":
-      //lógica da tela de inicio
-      break;
-     case "jogo":
-       player.inputJogador();
-       player.drawJogador();
-       atirar();
-       break;
-     case "fim":
-       //lógica de Game Over
-       break;
+ gameLoop();
+  
+}
+
+void gameLoop(){
+  background(16,12,8);
+  
+  p1.render();
+  p1.move();
+  
+  //loop que armazena balas
+  for(Bullet aBullet : bulletList){
+    aBullet.render();
+    aBullet.move();
   }
-}
 
-void telaTitulo(){
-  cena = "titulo";
-  
-  background(bg[0],bg[1],bg[2]);
-  textFont(boldFont);
-  textSize(80);
-  textAlign(CENTER);
-  text("Melâncio",250,125);
-  text("no Espaço",250,180);
-  
-  textFont(font);
-  textSize(32);
-  text("pressione espaço para jogar :3",250,550);
 }
-
-void telaJogo(){
-  cena = "jogo";
-  
-  background(bg[0],bg[1],bg[2]);
-  textFont(font);
-  
-  textSize(32);
-  text("tela principal",250,50);
-  
-  
-}
-
-void telaFim(){
-  cena = "fim";
-  
-  background(bg[0],bg[1],bg[2]);
-  textFont(boldFont);
-  
-  textSize(64);
-  text("GAME OVER",250,250);
-  
-  textFont(font);
-  textSize(32);
-  text("pressione espaço para continuar",250,500);
-}
-
-void atirar(){
-  for(bala aBullet : listaBalas){
-    aBullet.renderizar();
-    aBullet.mover(); 
-  }
-}
-
-//vetor que verifica se uma tecla está sendo pressionada
-boolean[] keys = new boolean[256];
 
 void keyPressed(){
-  keys[keyCode] = true;
-  verificarCena(keys);
-  
-  if(keys[90] && cena == "jogo"){
-    listaBalas.add(new bala(player.getX(), player.getY()));
+  if(keyCode == LEFT){
+    p1.movingLeft = true;
+  }
+  if(keyCode == RIGHT){
+    p1.movingRight = true;
+  }
+  if(key == 'z'){
+    bulletList.add(new Bullet(p1.x,p1.y));
+    println(bulletList.size());
   }
 }
 
 void keyReleased(){
-  keys[keyCode] = false;
-  println(keyCode);
-}
-
-void verificarCena(boolean[] keys){
-    //verifica qual a cena do jogo
-  if(cena=="titulo" && keys[32]){
-      telaJogo();
+  if(keyCode == LEFT){
+    p1.movingLeft = false;
   }
-  else if(cena=="jogo" && keys[32]){
-    //apenas para teste
-    telaFim();
-    //flag de tiro?
-  }
-  else if(cena=="fim" && keys[32]){
-     telaTitulo();
+  if(keyCode == RIGHT){
+    p1.movingRight = false;
   }
 }
