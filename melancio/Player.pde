@@ -12,6 +12,10 @@ int speed;
 boolean movingLeft;
 boolean movingRight;
 
+//variaveis de Sprites
+int currFrame;
+
+
 //constructor (ngc que inicializa variaveis)
 Player(int startingX, int startingY){
   x = startingX;
@@ -24,11 +28,14 @@ Player(int startingX, int startingY){
   
   movingLeft = false;
   movingRight = false;
+  
+  currFrame = 0;
 }
 
  //renderiza o jogador na tela
  void render(){
    rect(x,y,playerWidth,playerHeight);
+   image(playerSprites[currFrame],x,y);
  }
 
  void move(){
@@ -37,6 +44,11 @@ Player(int startingX, int startingY){
    }
    if(movingRight == true){
      x += speed;
+   }
+   
+   currFrame++;
+   if(currFrame == playerFrames){
+     currFrame = 0;
    }
  }
 

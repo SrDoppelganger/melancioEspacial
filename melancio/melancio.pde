@@ -1,22 +1,32 @@
 
-//variaveis
+//variaveis de classes 
 Player p1;
-
 ArrayList<Bullet> bulletList;
+
+//variaveis de imagens
+PImage playerSprites[];
+//sprites dos inimigos aqui
+int playerFrames; //e frames dos inimigos tbm ;)
+
 
 
 void setup(){
   size(480,600);
   
-  p1 = new Player(220,520);
+  //carrega os sprites do jogador no inicio do jogo
+  playerFrames = 4;
+  playerSprites = new  PImage[playerFrames];
+  for(int i = 0; i<playerFrames; i++){
+    playerSprites[i] = loadImage("data/Player/sprite_"+i+".png");
+  }
   
+  p1 = new Player(220,520);
   bulletList = new ArrayList<Bullet>();
 }
 
 
 void draw(){
  gameLoop();
- println(bulletList.size());
 }
 
 void gameLoop(){
