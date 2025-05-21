@@ -3,6 +3,7 @@
 Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
+ArrayList<Player> playerList;
 
 //variaveis de imagens
 PImage playerSprites[];
@@ -30,6 +31,10 @@ void setup(){
   p1 = new Player(width/2,550);
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
+  
+  //DEBUG
+  playerList = new ArrayList<Player>();
+  playerList.add(p1);
   
   
   cena = "titulo";
@@ -60,6 +65,7 @@ void loadSprites(){
   enemySprites = new PImage[enemyFrames];
   for(int i = 0; i<enemyFrames; i++){
     enemySprites[i] = loadImage("data/Enemies/nectafiro-Sheet/sprite_"+i+".png");
+    enemySprites[i].resize(48,48);
   }
 }
 
@@ -74,9 +80,13 @@ void gameLoop(){
   
   p1.render();
   p1.move();
-  bulletLogic();
   
+  bulletLogic();
   enemyLogic();
+  
+  if(p1.isDead == true){
+    cena = "gameOver";
+  }
 }
 
 void titleScreen(){
@@ -90,6 +100,9 @@ void titleScreen(){
   textFont(font);
   textSize(32);
   text("pressione espaço para jogar",width/2,550);
+  
+  //achar um jeito melhor de fazer isso
+  p1.isDead = false;
 }
 
 void gameOverScreen(){
@@ -138,27 +151,34 @@ void bulletLogic(){
 void enemyLogic(){ 
   for(Enemy anEnemy : enemyList){
     anEnemy.render();
+    anEnemy.move();
+    
+    //checa para ver se o inimigo colidiu com o jogador
+    for(Player aPlayer : playerList){
+      anEnemy.hitPlayer(aPlayer);
+    }
   }
   
   //loop que remove inimigos
   for(int i = enemyList.size()-1; i>=0; i--){
-    Enemy anEnemy = enemyList.get(i); 
+    Enemy anEnemy = enemyList.get(i);
     
     if(anEnemy.isDead == true){
       enemyList.remove(anEnemy);
       pontos++;
     }
   }
-  
-  
+    
   //DEBUG, implementar um sistema de spawn melhor dps
   int randX = round(random(40,440));
-  int randY = round(random(50,height/2));
   if(enemyList.size() < 1){
-    Enemy aDummy = new Enemy(randX,randY);
-    enemyList.add(aDummy);
+    Enemy anEnemy = new Enemy(randX,0);
+    enemyList.add(anEnemy);
+    
+ 
   }
 }
+
 
 void keyPressed(){
   if(keyCode == LEFT){

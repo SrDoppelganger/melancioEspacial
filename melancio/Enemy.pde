@@ -6,6 +6,8 @@ class Enemy{
   int enmWidth;
   int enmHeight;
   
+  int speed;
+  
   //variaveis de sprites
   int currFrame;
   
@@ -21,8 +23,10 @@ class Enemy{
     x = startingX;
     y = startingY;
     
-    enmWidth = 70;
-    enmHeight = 70;
+    enmWidth = 48;
+    enmHeight = 48;
+    
+    speed = 4;
     
     currFrame = 0;
     
@@ -41,9 +45,9 @@ class Enemy{
   
   void render(){
     //quadrado de hitbox
-    //fill(255,0,0);
-    //rectMode(CENTER);
-    //rect(x,y,enmWidth,enmHeight);
+    fill(255,0,0);
+    rectMode(CENTER);
+    rect(x,y,enmWidth,enmHeight);
     imageMode(CENTER);
     image(enemySprites[currFrame],x,y);
     
@@ -58,5 +62,30 @@ class Enemy{
     }
     
   }//render
+  
+ void move(){
+   y += speed;
+   
+   left = x - enmWidth/2;
+   right = x + enmWidth/2;
+   top = y - enmHeight/2;
+   bottom = y + enmHeight/2;
+   
+   checkScreen();
+ }
+ 
+ void checkScreen(){
+   if(y>=650){
+     isDead = true;
+   }
+ }
+ 
+ void hitPlayer(Player p1){
+    //checa se a bala está dentro do inimigo, e se estiver remove ele da tela (talvez add mecanica de HP )
+    if(top <= p1.bottom && bottom >= p1.top && left <= p1.right && right >= p1.left){
+      p1.isDead = true;
+      isDead = true;
+    }
+ }
   
 }

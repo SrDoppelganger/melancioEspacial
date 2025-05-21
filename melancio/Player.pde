@@ -11,29 +11,44 @@ int speed;
 
 boolean movingLeft;
 boolean movingRight;
+boolean isDead;
 
 //variaveis de Sprites
 int currFrame;
 //loopFrames <--variavel para mudar animações
+
+//variaveis de colisões
+int left,right,top,bottom;
 
 //constructor (ngc que inicializa variaveis)
 Player(int startingX, int startingY){
   x = startingX;
   y = startingY;
   
-  playerWidth = 40;
-  playerHeight = 40;
+  playerWidth = 96;
+  playerHeight = 72;
   
   speed = 10;
   
   movingLeft = false;
   movingRight = false;
+  isDead = false;
   
   currFrame = 0;
+  
+   left = x - playerWidth/2;
+   right = x + playerWidth/2;
+   top = y - playerHeight/2;
+   bottom = y + playerHeight/2;
 }
 
  //renderiza o jogador na tela
  void render(){
+   //retangulo de hitbox
+   fill(0,0,255);
+   rectMode(CENTER);
+   rect(x,y,playerWidth,playerHeight);
+   
    imageMode(CENTER);
    image(playerSprites[currFrame],x,y);
  }
@@ -48,6 +63,11 @@ Player(int startingX, int startingY){
    if(movingRight == true){
      x += speed;
    }
+   
+   left = x - playerWidth/2;
+   right = x + playerWidth/2;
+   top = y - playerHeight/2;
+   bottom = y + playerHeight/2;
  }
  
  void checkCollision(){
@@ -66,5 +86,6 @@ Player(int startingX, int startingY){
      currFrame = 0;
    }
  }
+
 
 }
