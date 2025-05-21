@@ -68,6 +68,7 @@ Player(int startingX, int startingY){
      x += speed;
    }
    
+   //atualiza posição da hitbox
    left = x - playerWidth/2;
    right = x + playerWidth/2;
    top = y - playerHeight/2;

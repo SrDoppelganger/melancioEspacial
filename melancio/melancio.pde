@@ -4,6 +4,8 @@ Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
 
+PowerUp power;
+
 //variaveis de imagens
 PImage playerSprites[];
 PImage enemySprites[];
@@ -15,6 +17,7 @@ String cena;
 int spawnTimer,spawnInterval;
 int highscore;
 boolean newHighscore;
+//array para guardar tipos de power-ups?
 
 //variaveis de customização
 PFont font;
