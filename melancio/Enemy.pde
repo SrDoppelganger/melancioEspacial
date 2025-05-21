@@ -82,7 +82,7 @@ class Enemy{
  }
  
  void hitPlayer(Player p1){
-    //checa se a bala está dentro do inimigo, e se estiver remove ele da tela (talvez add mecanica de HP )
+    //checa se o inimigo atingiu o jogador, e se sim, remove o inimigo da tela
     if(top <= p1.bottom && bottom >= p1.top && left <= p1.right && right >= p1.left){
       //substituir por -= damage dps
       p1.health -= 1;

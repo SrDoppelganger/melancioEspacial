@@ -8,6 +8,8 @@ class PowerUp{
   
   int speed;
   
+  boolean taken;
+  
   //colisões
   int left,right,top,bottom;
   
@@ -19,6 +21,7 @@ class PowerUp{
     //type = powerType
     
     speed = 5;
+    taken = false;
     
     left = x - d/2;
     right = x + d/2;
@@ -27,7 +30,7 @@ class PowerUp{
   }
   
   void render(){
-    fill(255,193,204);
+    fill(82,24,250);
     circle(x,y,d);
   }
   
@@ -39,5 +42,13 @@ class PowerUp{
     top = y - d/2;
     bottom = y + d/2;
   }
+  
+  void givePower(Player p1){
+   //checa se o jogador pegou o upgrade
+   if(top <= p1.bottom && bottom >= p1.top && left <= p1.right && right >= p1.left){
+      p1.health += 1;
+      taken = true;
+   }
+ }
 
 }

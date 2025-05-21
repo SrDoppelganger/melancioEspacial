@@ -3,7 +3,7 @@
 Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
-
+//substituir por uma ArrayList dps
 PowerUp power;
 
 //variaveis de imagens
@@ -39,6 +39,9 @@ void setup(){
   p1 = new Player(width/2,550);
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
+  
+  //DEBUG
+  power = new PowerUp(width/2,0);
   
   //inicializa highscore
   highscore = 0;
@@ -94,6 +97,11 @@ void gameLoop(){
   
   bulletLogic();
   enemyLogic();
+  
+  //DEBUG
+  power.render();
+  power.move();
+  power.givePower(p1);
   
   if(p1.isDead == true){
     cena = "gameOver";
