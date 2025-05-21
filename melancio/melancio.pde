@@ -3,8 +3,7 @@
 Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
-//substituir por uma ArrayList dps
-PowerUp power;
+ArrayList<PowerUp> powerUpList;
 
 //variaveis de imagens
 PImage playerSprites[];
@@ -14,7 +13,11 @@ int enemyFrames;
 
 //variaveis de gameplay
 String cena;
+
+//timer para spawnar inimigos
 int spawnTimer,spawnInterval;
+//timer para spawnar power-ups
+int powerTimer,powerInterval;
 int highscore;
 boolean newHighscore;
 //array para guardar tipos de power-ups?
@@ -32,19 +35,21 @@ void setup(){
   
   loadSprites();
   
-  //inicializar timer
+  //inicializa timers
   spawnTimer = millis();
   spawnInterval = 500;
+  
+  powerTimer = millis();
+  powerInterval = 30000;
   
   p1 = new Player(width/2,550);
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
-  
-  //DEBUG
-  power = new PowerUp(width/2,0);
+  powerUpList = new ArrayList<PowerUp>();
   
   //inicializa highscore
   highscore = 0;
+
   
   cena = "titulo";
 }
@@ -76,6 +81,8 @@ void loadSprites(){
     enemySprites[i] = loadImage("data/Enemies/nectafiro-Sheet/sprite_"+i+".png");
     enemySprites[i].resize(48,48);
   }
+  
+  //colocar sprites de power up aq
 }
 
 void gameLoop(){
@@ -97,11 +104,7 @@ void gameLoop(){
   
   bulletLogic();
   enemyLogic();
-  
-  //DEBUG
-  power.render();
-  power.move();
-  power.givePower(p1);
+  powerUpLogic();
   
   if(p1.isDead == true){
     cena = "gameOver";
@@ -212,10 +215,36 @@ void enemyLogic(){
   
   //remove todos os inimigos quando acaba o jogo
   if(p1.isDead == true){
-   for(int i = enemyList.size()-1; i>=0; i--){
+   for(int i = enemyList.size()-1; i >= 0; i--){
      Enemy anEnemy = enemyList.get(i);
      enemyList.remove(anEnemy);
    }
+  }
+}
+
+void powerUpLogic(){
+  //loop que armazerna upgrades na tela
+  for(PowerUp power : powerUpList){
+    power.render();
+    power.move();
+    
+    power.checkPlayer(p1);
+  }
+  
+  for(int i = powerUpList.size()-1; i >= 0; i--){
+    PowerUp power = powerUpList.get(i);
+    
+    if(power.taken == true){
+      powerUpList.remove(power);
+    }
+  }
+  
+  //spawna um upgrade a cada 30 segundos
+  int randX = round(random(40,440));
+  if(powerUpList.size() < 1 && millis() > powerTimer + powerInterval){
+    PowerUp power = new PowerUp(randX,0);
+    powerUpList.add(power);
+    powerTimer = millis();
   }
 }
 

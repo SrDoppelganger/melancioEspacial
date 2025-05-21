@@ -41,9 +41,13 @@ class PowerUp{
     right = x + d/2;
     top = y - d/2;
     bottom = y + d/2;
+    
+    if(y>=650){
+      taken = true;
+    }
   }
   
-  void givePower(Player p1){
+  void checkPlayer(Player p1){
    //checa se o jogador pegou o upgrade
    if(top <= p1.bottom && bottom >= p1.top && left <= p1.right && right >= p1.left){
       p1.health += 1;
