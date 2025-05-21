@@ -48,5 +48,13 @@ class Bullet{
       foraDeTela = true;
     }
   }
+  
+  void hitEnemy(Enemy anEnemy){
+    //checa se a bala está dentro do inimigo
+    if(top <= anEnemy.bottom && bottom >= anEnemy.top && left <= anEnemy.right && right >= anEnemy.left){
+      println("inimigo: ouchie!");
+      pontos++;
+    }
+  }
 
 }

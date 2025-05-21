@@ -112,6 +112,11 @@ void bulletLogic(){
     aBullet.render();
     aBullet.move();
     aBullet.checkScreen();
+    
+    //checa para ver se a bala acertou algum dos inimigos na tela
+    for(Enemy anEnemy : enemyList){
+      aBullet.hitEnemy(anEnemy);
+    }
   }
   
   //loop que remove balas
@@ -120,8 +125,6 @@ void bulletLogic(){
     
     if(aBullet.foraDeTela == true){
       bulletList.remove(aBullet);
-      //somente para teste
-      pontos++;
     }
   }
 }
