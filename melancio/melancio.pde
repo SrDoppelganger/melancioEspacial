@@ -11,8 +11,9 @@ PImage enemySprites[];
 int playerFrames; 
 int enemyFrames;
 
-//variaveis de cenas
+//variaveis de gameplay
 String cena;
+int spawnTimer,spawnInterval;
 
 //variaveis de customização
 PFont font;
@@ -27,6 +28,9 @@ void setup(){
   
   loadSprites();
   
+  //inicializar timer
+  spawnTimer = millis();
+  spawnInterval = 500;
   
   p1 = new Player(width/2,550);
   bulletList = new ArrayList<Bullet>();
@@ -153,7 +157,7 @@ void bulletLogic(){
   }
 }
 
-void enemyLogic(){ 
+void enemyLogic(){
   for(Enemy anEnemy : enemyList){
     anEnemy.render();
     anEnemy.move();
@@ -180,11 +184,10 @@ void enemyLogic(){
     
   //DEBUG, implementar um sistema de spawn melhor dps
   int randX = round(random(40,440));
-  if(enemyList.size() < 1){
+  if(enemyList.size() < 3 && millis() > spawnTimer + spawnInterval){
     Enemy anEnemy = new Enemy(randX,0);
     enemyList.add(anEnemy);
-    
- 
+    spawnTimer = millis();
   }
 }
 
