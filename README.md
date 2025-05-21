@@ -5,7 +5,7 @@
 - [x] Personagem principal
 - [x] Inimigos
 - [ ] Projéteis*
-- [ ] Lógica de vidas
+- [x] Lógica de vidas
 - [ ] Power-ups
 - [ ] Lógica de highscore*
 

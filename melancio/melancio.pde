@@ -216,10 +216,6 @@ void keyPressed(){
   if(key == ' ' && cena == "titulo"){
     cena = "jogo";
   }
-  //DEBUG
-  if(key == 'k' && cena == "jogo"){
-    cena = "gameOver";
-  }
   if(key == ' ' && cena == "gameOver"){
     cena = "titulo";
   }
