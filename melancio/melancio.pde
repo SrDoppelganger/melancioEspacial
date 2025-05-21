@@ -129,7 +129,7 @@ void bulletLogic(){
   }
 }
 
-void enemyLogic(){
+void enemyLogic(){ 
   for(Enemy anEnemy : enemyList){
     anEnemy.render();
   }
@@ -142,6 +142,15 @@ void enemyLogic(){
       enemyList.remove(anEnemy);
       pontos++;
     }
+  }
+  
+  
+  //DEBUG, implementar um sistema de spawn melhor dps
+  int randX = round(random(50,440));
+  int randY = round(random(50,height/2));
+  if(enemyList.size() < 1){
+    Enemy aDummy = new Enemy(randX,randY);
+    enemyList.add(aDummy);
   }
 }
 
