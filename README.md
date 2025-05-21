@@ -7,6 +7,6 @@
 - [ ] Projéteis*
 - [x] Lógica de vidas
 - [ ] Power-ups
-- [ ] Lógica de highscore*
+- [x] Lógica de highscore
 
 *parcialmente
