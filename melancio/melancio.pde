@@ -189,6 +189,16 @@ void enemyLogic(){
     enemyList.add(anEnemy);
     spawnTimer = millis();
   }
+  
+  //remove todos os inimigos quando acaba o jogo
+  if(p1.isDead == true){
+   for(int i = enemyList.size()-1; i>=0; i--){
+     Enemy anEnemy = enemyList.get(i);
+     enemyList.remove(anEnemy);
+   }
+  }
+  
+  
 }
 
 
