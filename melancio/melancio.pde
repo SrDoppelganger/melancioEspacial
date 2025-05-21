@@ -182,9 +182,9 @@ void enemyLogic(){
     }
   }
     
-  //DEBUG, implementar um sistema de spawn melhor dps
+  //logica de spawn de inimigos
   int randX = round(random(40,440));
-  if(enemyList.size() < 3 && millis() > spawnTimer + spawnInterval){
+  if(enemyList.size() < 5 && millis() > spawnTimer + spawnInterval){
     Enemy anEnemy = new Enemy(randX,0);
     enemyList.add(anEnemy);
     spawnTimer = millis();
