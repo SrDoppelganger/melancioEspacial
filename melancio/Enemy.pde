@@ -9,6 +9,8 @@ class Enemy{
   //variaveis de sprites
   int currFrame;
   
+  int timer,interval;
+  
   //variaveis de colisão
   int left,right,top,bottom;
   
@@ -19,8 +21,8 @@ class Enemy{
     x = startingX;
     y = startingY;
     
-    enmWidth = 30;
-    enmHeight = 30;
+    enmWidth = 70;
+    enmHeight = 70;
     
     currFrame = 0;
     
@@ -31,13 +33,30 @@ class Enemy{
     bottom = y + enmHeight/2;
     
     isDead = false;
+    
+    
+    timer = millis();
+    interval = 120;
   }
   
   void render(){
-    fill(255,0,0);
-    rect(x,y,enmWidth,enmHeight);
+    //quadrado de hitbox
+    //fill(255,0,0);
+    //rectMode(CENTER);
+    //rect(x,y,enmWidth,enmHeight);
     imageMode(CENTER);
     image(enemySprites[currFrame],x,y);
-  }
+    
+    
+    //toca a animação do inimigo em loop num frameRate menor doq o do jogo em si
+    if(millis() > timer+interval){
+      currFrame++;
+      if(currFrame == enemyFrames){
+        currFrame = 0;
+      }
+      timer = millis();
+    }
+    
+  }//render
   
 }

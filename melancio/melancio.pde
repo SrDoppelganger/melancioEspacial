@@ -1,7 +1,6 @@
 
 //variaveis de classes 
 Player p1;
-Enemy dummy;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
 
@@ -32,9 +31,6 @@ void setup(){
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
   
-  //DEBUG
-  dummy = new Enemy(width/2,50);
-  enemyList.add(dummy);
   
   cena = "titulo";
 }
@@ -156,7 +152,7 @@ void enemyLogic(){
   
   
   //DEBUG, implementar um sistema de spawn melhor dps
-  int randX = round(random(50,440));
+  int randX = round(random(40,440));
   int randY = round(random(50,height/2));
   if(enemyList.size() < 1){
     Enemy aDummy = new Enemy(randX,randY);

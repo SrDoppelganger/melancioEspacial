@@ -51,10 +51,10 @@ Player(int startingX, int startingY){
  }
  
  void checkCollision(){
-   if(x >= 390){
+   if(x >= 440){
      movingRight = false;
    }
-   if(x <= 0){
+   if(x <= 40){
      movingLeft = false;
    }
  }
