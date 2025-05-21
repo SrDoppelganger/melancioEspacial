@@ -4,12 +4,15 @@ Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
 ArrayList<PowerUp> powerUpList;
+String[] powerUpTypes;
 
 //variaveis de imagens
 PImage playerSprites[];
 PImage enemySprites[];
+PImage powerUpSprites[];
 int playerFrames; 
 int enemyFrames;
+int powerUpFrames;
 
 //variaveis de gameplay
 String cena;
@@ -46,6 +49,7 @@ void setup(){
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
   powerUpList = new ArrayList<PowerUp>();
+  powerUpTypes = new String[]{"health","bomb"};
   
   //inicializa highscore
   highscore = 0;
@@ -82,7 +86,11 @@ void loadSprites(){
     enemySprites[i].resize(48,48);
   }
   
-  //colocar sprites de power up aq
+  powerUpFrames = 2;
+  powerUpSprites = new PImage[powerUpFrames];
+  for(int i = 0; i<powerUpFrames; i++){
+    powerUpSprites[i] = loadImage("data/Power-Ups/sprite_"+i+".png");
+  }
 }
 
 void gameLoop(){
@@ -239,10 +247,13 @@ void powerUpLogic(){
     }
   }
   
+  //randomiza o tipo de power up
+  int randType = round(random(0,1));
+  String chosenType = powerUpTypes[randType];
   //spawna um upgrade a cada 30 segundos
   int randX = round(random(40,440));
   if(powerUpList.size() < 1 && millis() > powerTimer + powerInterval){
-    PowerUp power = new PowerUp(randX,0);
+    PowerUp power = new PowerUp(randX,0,chosenType);
     powerUpList.add(power);
     powerTimer = millis();
   }
