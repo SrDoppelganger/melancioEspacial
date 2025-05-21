@@ -6,6 +6,9 @@ class Enemy{
   int enmWidth;
   int enmHeight;
   
+  //variaveis de sprites
+  int currFrame;
+  
   //variaveis de colisão
   int left,right,top,bottom;
   
@@ -19,6 +22,8 @@ class Enemy{
     enmWidth = 30;
     enmHeight = 30;
     
+    currFrame = 0;
+    
     //lembrar de colocar isso na função move() dps ;3
     left = x - enmWidth/2;
     right = x + enmWidth/2;
@@ -29,9 +34,10 @@ class Enemy{
   }
   
   void render(){
-    rectMode(CENTER);
     fill(255,0,0);
     rect(x,y,enmWidth,enmHeight);
+    imageMode(CENTER);
+    image(enemySprites[currFrame],x,y);
   }
   
 }

@@ -7,8 +7,9 @@ ArrayList<Bullet> bulletList;
 
 //variaveis de imagens
 PImage playerSprites[];
-//sprites dos inimigos aqui
-int playerFrames; //e frames dos inimigos tbm ;)
+PImage enemySprites[];
+int playerFrames; 
+int enemyFrames;
 
 //variaveis de cenas
 String cena;
@@ -24,16 +25,10 @@ void setup(){
   font = createFont("PixelOperator.ttf",64);
   fontBold = createFont("PixelOperator-Bold.ttf",64);
   
-  //carrega os sprites do jogador no inicio do jogo
-  //fazer uma função dedicada pra isso dps :3c
-  playerFrames = 4;
-  playerSprites = new  PImage[playerFrames];
-  for(int i = 0; i<playerFrames; i++){
-    playerSprites[i] = loadImage("data/Player/sprite_"+i+".png");
-  }
+  loadSprites();
   
   
-  p1 = new Player(220,480);
+  p1 = new Player(width/2,550);
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
   
@@ -54,6 +49,21 @@ void draw(){
   }
   if(cena == "gameOver"){
     gameOverScreen();
+  }
+}
+
+void loadSprites(){
+  //carrega os sprites do jogador no inicio do jogo
+  playerFrames = 4;
+  playerSprites = new PImage[playerFrames];
+  for(int i = 0; i<playerFrames; i++){
+    playerSprites[i] = loadImage("data/Player/sprite_"+i+".png");
+  }
+  
+  enemyFrames = 5;
+  enemySprites = new PImage[enemyFrames];
+  for(int i = 0; i<enemyFrames; i++){
+    enemySprites[i] = loadImage("data/Enemies/nectafiro-Sheet/sprite_"+i+".png");
   }
 }
 
@@ -162,7 +172,7 @@ void keyPressed(){
     p1.movingRight = true;
   }
   if(key == 'z'){
-    bulletList.add(new Bullet(p1.x + 45,p1.y + 5));
+    bulletList.add(new Bullet(p1.x,p1.y - 40));
     p1.shootingAnim();
   }
   if(key == ' ' && cena == "titulo"){

@@ -34,6 +34,7 @@ Player(int startingX, int startingY){
 
  //renderiza o jogador na tela
  void render(){
+   imageMode(CENTER);
    image(playerSprites[currFrame],x,y);
  }
 
