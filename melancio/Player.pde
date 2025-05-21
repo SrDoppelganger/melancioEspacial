@@ -8,6 +8,7 @@ int playerWidth;
 int playerHeight;
 
 int speed;
+int health;
 
 boolean movingLeft;
 boolean movingRight;
@@ -29,6 +30,7 @@ Player(int startingX, int startingY){
   playerHeight = 72;
   
   speed = 10;
+  health = 3;
   
   movingLeft = false;
   movingRight = false;
@@ -45,12 +47,14 @@ Player(int startingX, int startingY){
  //renderiza o jogador na tela
  void render(){
    //retangulo de hitbox
-   fill(0,0,255);
-   rectMode(CENTER);
-   rect(x,y,playerWidth,playerHeight);
+   //fill(0,0,255);
+   //rectMode(CENTER);
+   //rect(x,y,playerWidth,playerHeight);
    
    imageMode(CENTER);
    image(playerSprites[currFrame],x,y);
+   
+   manageHealth();
  }
 
  void move(){
@@ -70,6 +74,14 @@ Player(int startingX, int startingY){
    bottom = y + playerHeight/2;
  }
  
+  //toca a animação de atirar
+ void shootingAnim(){
+   currFrame++;
+   if(currFrame == playerFrames){
+     currFrame = 0;
+   }
+ }
+ 
  void checkCollision(){
    if(x >= 440){
      movingRight = false;
@@ -79,12 +91,18 @@ Player(int startingX, int startingY){
    }
  }
  
- //toca a animação de atirar
- void shootingAnim(){
-   currFrame++;
-   if(currFrame == playerFrames){
-     currFrame = 0;
+ void manageHealth(){
+   if(health<=0){
+     isDead = true;
    }
+ }
+ 
+ void resetStats(){
+   health = 3;
+   isDead = false;
+   
+   x = width/2;
+   y = 550;
  }
 
 

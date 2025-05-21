@@ -78,6 +78,11 @@ void gameLoop(){
   fill(255);
   text("pontuação: "+nf(pontos,4),5,20);
   
+  textSize(24);
+  textAlign(RIGHT);
+  fill(255);
+  text("vida:"+nf(p1.health,2),470,20);
+  
   p1.render();
   p1.move();
   
@@ -102,7 +107,7 @@ void titleScreen(){
   text("pressione espaço para jogar",width/2,550);
   
   //achar um jeito melhor de fazer isso
-  p1.isDead = false;
+  p1.resetStats();
 }
 
 void gameOverScreen(){
@@ -163,9 +168,13 @@ void enemyLogic(){
   for(int i = enemyList.size()-1; i>=0; i--){
     Enemy anEnemy = enemyList.get(i);
     
+    //adiciona pontos caso o jogador acerte o inimigo e não adiciona caso o inimigo só saia da tela
     if(anEnemy.isDead == true){
       enemyList.remove(anEnemy);
       pontos++;
+    }
+    if(anEnemy.remove == true){
+      enemyList.remove(anEnemy);
     }
   }
     

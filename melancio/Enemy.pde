@@ -17,6 +17,7 @@ class Enemy{
   int left,right,top,bottom;
   
   boolean isDead;
+  boolean remove;
   
   //constructor
   Enemy(int startingX,int startingY){
@@ -37,7 +38,7 @@ class Enemy{
     bottom = y + enmHeight/2;
     
     isDead = false;
-    
+    remove = false;
     
     timer = millis();
     interval = 120;
@@ -45,9 +46,9 @@ class Enemy{
   
   void render(){
     //quadrado de hitbox
-    fill(255,0,0);
-    rectMode(CENTER);
-    rect(x,y,enmWidth,enmHeight);
+    //fill(255,0,0);
+    //rectMode(CENTER);
+    //rect(x,y,enmWidth,enmHeight);
     imageMode(CENTER);
     image(enemySprites[currFrame],x,y);
     
@@ -76,15 +77,16 @@ class Enemy{
  
  void checkScreen(){
    if(y>=650){
-     isDead = true;
+     remove = true;
    }
  }
  
  void hitPlayer(Player p1){
     //checa se a bala está dentro do inimigo, e se estiver remove ele da tela (talvez add mecanica de HP )
     if(top <= p1.bottom && bottom >= p1.top && left <= p1.right && right >= p1.left){
-      p1.isDead = true;
-      isDead = true;
+      //substituir por -= damage dps
+      p1.health -= 1;
+      remove = true;
     }
  }
   
