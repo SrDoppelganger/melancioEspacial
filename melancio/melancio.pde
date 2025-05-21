@@ -3,7 +3,6 @@
 Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
-ArrayList<Player> playerList;
 
 //variaveis de imagens
 PImage playerSprites[];
@@ -14,6 +13,8 @@ int enemyFrames;
 //variaveis de gameplay
 String cena;
 int spawnTimer,spawnInterval;
+int highscore;
+boolean newHighscore;
 
 //variaveis de customização
 PFont font;
@@ -36,10 +37,8 @@ void setup(){
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
   
-  //DEBUG
-  playerList = new ArrayList<Player>();
-  playerList.add(p1);
-  
+  //inicializa highscore
+  highscore = 0;
   
   cena = "titulo";
 }
@@ -112,10 +111,13 @@ void titleScreen(){
   
   //achar um jeito melhor de fazer isso
   p1.resetStats();
+  newHighscore = false;
 }
 
 void gameOverScreen(){
   background(0,0,14);
+  getHighscore(pontos);
+  
   
   textFont(fontBold);
   textSize(64);
@@ -126,7 +128,16 @@ void gameOverScreen(){
   textFont(font);
   textSize(32);
   fill(255,255,49);
+  text("Highscore: "+ nf(highscore,4), width/2,270);
+  
+  fill(255);
   text("Sua pontuação: "+ nf(pontos,4), width/2,height/2);
+  
+  if(newHighscore == true){
+    textSize(32);
+    fill(255,67,164);
+    text("Novo recorde!!!", width/2,400);
+  }
   
   
   
@@ -163,9 +174,7 @@ void enemyLogic(){
     anEnemy.move();
     
     //checa para ver se o inimigo colidiu com o jogador
-    for(Player aPlayer : playerList){
-      anEnemy.hitPlayer(aPlayer);
-    }
+    anEnemy.hitPlayer(p1);
   }
   
   //loop que remove inimigos
@@ -197,8 +206,16 @@ void enemyLogic(){
      enemyList.remove(anEnemy);
    }
   }
-  
-  
+}
+
+void getHighscore(int score){
+  if(highscore < score){
+    highscore = score;
+    newHighscore = true;    
+  }
+  else{
+    return;
+  }
 }
 
 

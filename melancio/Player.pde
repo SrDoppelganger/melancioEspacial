@@ -103,6 +103,7 @@ Player(int startingX, int startingY){
    
    x = width/2;
    y = 550;
+   pontos = 0;
  }
 
 
