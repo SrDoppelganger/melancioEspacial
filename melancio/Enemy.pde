@@ -9,6 +9,8 @@ class Enemy{
   //variaveis de colisão
   int left,right,top,bottom;
   
+  boolean isDead;
+  
   //constructor
   Enemy(int startingX,int startingY){
     x = startingX;
@@ -22,6 +24,8 @@ class Enemy{
     right = x + enmWidth/2;
     top = y - enmHeight/2;
     bottom = y + enmHeight/2;
+    
+    isDead = false;
   }
   
   void render(){

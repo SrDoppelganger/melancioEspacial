@@ -10,7 +10,7 @@ class Bullet{
   
   boolean foraDeTela;
   
-  //variaveis de colisão (limites do tamanho da bala)
+  //variaveis de colisão 
   int left,right,top,bottom;
   
   //constructor
@@ -50,10 +50,10 @@ class Bullet{
   }
   
   void hitEnemy(Enemy anEnemy){
-    //checa se a bala está dentro do inimigo
+    //checa se a bala está dentro do inimigo, e se estiver remove ele da tela (talvez add mecanica de HP )
     if(top <= anEnemy.bottom && bottom >= anEnemy.top && left <= anEnemy.right && right >= anEnemy.left){
-      println("inimigo: ouchie!");
-      pontos++;
+      anEnemy.isDead = true;
+      foraDeTela = true;
     }
   }
 

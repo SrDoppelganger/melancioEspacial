@@ -133,6 +133,16 @@ void enemyLogic(){
   for(Enemy anEnemy : enemyList){
     anEnemy.render();
   }
+  
+  //loop que remove inimigos
+  for(int i = enemyList.size()-1; i>=0; i--){
+    Enemy anEnemy = enemyList.get(i); 
+    
+    if(anEnemy.isDead == true){
+      enemyList.remove(anEnemy);
+      pontos++;
+    }
+  }
 }
 
 void keyPressed(){
