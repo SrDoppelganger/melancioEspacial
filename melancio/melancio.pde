@@ -30,7 +30,7 @@ PFont fontBold;
 int pontos;
 
 void setup(){
-  size(480,600);
+  size(480,640);
   
   font = createFont("PixelOperator.ttf",64);
   fontBold = createFont("PixelOperator-Bold.ttf",64);
@@ -102,14 +102,14 @@ void gameLoop(){
   text("pontuação: "+nf(pontos,4),5,20);
   
   textSize(24);
-  textAlign(RIGHT);
-  fill(255);
-  text("vida:"+nf(p1.health,2),470,20);
+  textAlign(LEFT);
+  fill(255,8,0);
+  text("vida:"+nf(p1.health,2),10,620);
   
   textSize(24);
   textAlign(RIGHT);
-  fill(0,255,0);
-  text("bombas:"+nf(p1.bombs,2),470,600);
+  fill(76,187,23);
+  text("bombas:"+nf(p1.bombs,2),470,620);
   
   p1.render();
   p1.move();
@@ -191,6 +191,18 @@ void bulletLogic(){
     if(aBullet.foraDeTela == true){
       bulletList.remove(aBullet);
     }
+  }
+}
+
+void bombLogic(){
+  p1.bombs -= 1;
+  
+  //remove todos os inimigos da tela e aumenta o tempo de spawn de mais inimigos para melhor efeito
+  spawnTimer = millis() + 1000;
+  for(int i = enemyList.size()-1; i>=0; i--){
+    Enemy anEnemy = enemyList.get(i);
+    enemyList.remove(anEnemy);
+    pontos++;
   }
 }
 
@@ -304,9 +316,9 @@ void keyReleased(){
     //reseta animação de atirar
     p1.currFrame = 0;
   }
-  if(key == 'x'){
+  if(key == 'x' && p1.bombs > 0){
     //inserir lógica de bomba aqui
     println("você usou uma bomba!");
-    p1.bombs -= 1;
+    bombLogic();
   }
 }
