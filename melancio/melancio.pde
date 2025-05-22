@@ -60,7 +60,7 @@ void setup(){
   
   bombUsed = false;
   
-  cena = "dificuldades";
+  cena = "titulo";
 }
 
 
@@ -364,8 +364,21 @@ void keyPressed(){
     p1.shootingAnim();
   }
   if(key == ' ' && cena == "titulo"){
+    cena = "dificuldades";
+  }
+  if(key == '1' && cena == "dificuldades"){
+    p1.updateStats("fácil");
     cena = "jogo";
   }
+  if(key == '2' && cena == "dificuldades"){
+    p1.updateStats("médio");
+    cena = "jogo";
+  }
+  if(key == '3' && cena == "dificuldades"){
+    p1.updateStats("difícil");
+    cena = "jogo";
+  }
+  
   if(key == ' ' && cena == "gameOver"){
     cena = "titulo";
   }

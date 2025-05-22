@@ -30,6 +30,7 @@ class Bullet{
   }
   
   void render(){
+    noStroke();
     fill(bulletColor[0],bulletColor[1],bulletColor[2]);
     circle(x,y,size);
   }

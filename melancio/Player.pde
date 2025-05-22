@@ -108,6 +108,24 @@ Player(int startingX, int startingY){
    y = 550;
    pontos = 0;
  }
+ 
+ void updateStats(String dificuldade){
+   if(dificuldade == "fácil"){
+     println("stats: fácil");
+     health = 5;
+     bombs = 3;
+   }
+   if(dificuldade == "médio"){
+     println("stats: médio");
+     health = 3;
+     bombs = 0;
+   }
+   if(dificuldade == "difícil"){
+     println("stats: difícil");
+     health = 2;
+     bombs = 0;
+   }
+ }
 
 
 }
