@@ -4,9 +4,8 @@
 - [x] Tela de fim de jogo
 - [x] Personagem principal
 - [x] Inimigos
-- [ ] Projéteis*
+- [x] Projéteis
 - [x] Lógica de vidas
-- [ ] Power-ups
+- [x] Power-ups
 - [x] Lógica de highscore
 
-*parcialmente
