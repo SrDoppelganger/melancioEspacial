@@ -15,8 +15,11 @@ int powerUpFrames;
 
 //variaveis de gameplay
 String cena;
+int pontos,multiplicador,pontuacao;
 boolean bombUsed;
 int bombAnimation, bombDuration;
+String dificuldade;
+boolean lunatic;
 
 //timer para spawnar inimigos
 int spawnTimer,spawnInterval;
@@ -29,7 +32,7 @@ boolean newHighscore;
 //variaveis de customização
 PFont font;
 PFont fontBold;
-int pontos;
+
 
 void setup(){
   size(480,640);
@@ -57,7 +60,7 @@ void setup(){
   
   //inicializa highscore
   highscore = 0;
-  
+  multiplicador = 1;
   bombUsed = false;
   
   cena = "titulo";
@@ -76,6 +79,9 @@ void draw(){
   }
   if(cena == "gameOver"){
     gameOverScreen();
+  }
+  if(cena == " "){
+    secretScreen();
   }
 }
 
@@ -102,13 +108,15 @@ void loadSprites(){
 }
 
 void gameLoop(){
+  pontuacao = pontos * multiplicador;
+  
   background(0,0,14);
   textFont(font);
   
   textSize(24);
   textAlign(LEFT);
   fill(255);
-  text("pontuação: "+nf(pontos,4),5,20);
+  text("pontuação: "+nf(pontuacao,4),5,20);
   
   textSize(24);
   textAlign(LEFT);
@@ -119,6 +127,11 @@ void gameLoop(){
   textAlign(RIGHT);
   fill(76,187,23);
   text("bombas:"+nf(p1.bombs,2),470,620);
+  
+  textSize(24);
+  textAlign(CENTER);
+  fill(255);
+  text(dificuldade,width/2,620);
   
   p1.render();
   p1.move();
@@ -135,6 +148,7 @@ void gameLoop(){
   if(bombUsed == true){
     
     fill(255);
+    rectMode(RIGHT);
     rect(0,0,width,height);
     if(millis() > bombAnimation + bombDuration){
       bombUsed = false;
@@ -161,8 +175,8 @@ void titleScreen(){
 
 void gameOverScreen(){
   background(0,0,14);
-  getHighscore(pontos);
-  
+  getHighscore(pontuacao);
+  lunatic = false;
   
   textFont(fontBold);
   textSize(64);
@@ -176,7 +190,7 @@ void gameOverScreen(){
   text("Highscore: "+ nf(highscore,4), width/2,270);
   
   fill(255);
-  text("Sua pontuação: "+ nf(pontos,4), width/2,height/2);
+  text("Sua pontuação: "+ nf(pontuacao,4), width/2,height/2);
   
   if(newHighscore == true){
     textSize(32);
@@ -200,6 +214,7 @@ void selectionScreen(){
   text("Escolha a Dificuldade",width/2,50);
   
   strokeWeight(2);
+  rectMode(CORNER);
   
   stroke(0,255,0);
   noFill();
@@ -219,7 +234,6 @@ void selectionScreen(){
   fill(255);
   
   text("1-Facil\n     5 vidas\n     3 bombas",40,175);
-  
   text("2-Médio\n     3 vidas\n     1 bombas",90,300);
   text("3-Difícil\n     2 vidas\n     0 bombas",140,425);
   
@@ -231,6 +245,35 @@ void selectionScreen(){
   
   textAlign(CENTER);
   text("Pressione as teclas númericas para escolher", width/2, 600);
+}
+
+void secretScreen(){
+  background(0,0,14);
+  
+  textFont(fontBold);
+  textSize(48);
+  textAlign(CENTER);
+  fill(255);
+  text("Dificuldade Secreta",width/2,50);
+  
+  rectMode(CENTER);
+  strokeWeight(2);
+  
+  stroke(128,0,128);
+  noFill();
+  rect(width/2,height/2,300,100);
+  
+  textFont(font);
+  textSize(24);
+  textAlign(LEFT);
+  text("4-Lunático\n     1 vidas\n     0 bombas",100,290);
+  
+  textAlign(RIGHT);
+  text("pontuação x4",380,360);
+  
+  textAlign(CENTER);
+  text("pressione Z para selecionar",width/2,600);
+  text("pressione X para retornar",width/2,620);
 }
 
 void bulletLogic(){
@@ -254,6 +297,14 @@ void bulletLogic(){
       bulletList.remove(aBullet);
     }
   }
+  
+   //remove todas as balas quando acaba o jogo
+  if(p1.isDead == true){
+   for(int i = bulletList.size()-1; i >= 0; i--){
+     Bullet aBullet = bulletList.get(i);
+     bulletList.remove(aBullet);
+   }
+  }
 }
 
 void bombLogic(){
@@ -274,6 +325,7 @@ void enemyLogic(){
   for(Enemy anEnemy : enemyList){
     anEnemy.render();
     anEnemy.move();
+    anEnemy.lunacy(lunatic);
     
     //checa para ver se o inimigo colidiu com o jogador
     anEnemy.hitPlayer(p1);
@@ -315,6 +367,7 @@ void powerUpLogic(){
   for(PowerUp power : powerUpList){
     power.render();
     power.move();
+    power.lunacy(lunatic);
     
     power.checkPlayer(p1);
   }
@@ -367,18 +420,36 @@ void keyPressed(){
     cena = "dificuldades";
   }
   if(key == '1' && cena == "dificuldades"){
-    p1.updateStats("fácil");
+    dificuldade = "fácil";
+    p1.updateStats(dificuldade);
+    multiplicador = 1;
     cena = "jogo";
   }
   if(key == '2' && cena == "dificuldades"){
-    p1.updateStats("médio");
+    dificuldade = "médio";
+    p1.updateStats(dificuldade);
+    multiplicador = 2;
     cena = "jogo";
   }
   if(key == '3' && cena == "dificuldades"){
-    p1.updateStats("difícil");
+    dificuldade = "difícil";
+    p1.updateStats(dificuldade);
+    multiplicador = 3;
     cena = "jogo";
   }
-  
+  if(key == '4' && cena == "dificuldades"){
+    cena = " ";
+  }
+  if(key == 'z' && cena == " "){
+    dificuldade = "lunático";
+    p1.updateStats(" ");
+    multiplicador = 4;
+    lunatic = true;
+    cena = "jogo";
+  }
+  if(key == 'x' && cena == " "){
+    cena = "dificuldades";
+  }
   if(key == ' ' && cena == "gameOver"){
     cena = "titulo";
   }
@@ -396,8 +467,6 @@ void keyReleased(){
     p1.currFrame = 0;
   }
   if(key == 'x' && p1.bombs > 0){
-    //inserir lógica de bomba aqui
-    println("você usou uma bomba!");
     bombLogic();
   }
 }

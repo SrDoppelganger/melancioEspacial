@@ -76,5 +76,14 @@ class PowerUp{
      p1.bombs += 1;
    }
  }
+ 
+ void lunacy(boolean toggled_on){
+   if(toggled_on == true){
+        powerInterval = 60000;
+   }
+   else{
+     powerInterval = 30000;
+   }
+ }
 
 }

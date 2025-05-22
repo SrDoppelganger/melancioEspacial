@@ -89,5 +89,15 @@ class Enemy{
       remove = true;
     }
  }
+ 
+ void lunacy(boolean toggled_on){
+   if(toggled_on == true){
+     speed = 8;
+     spawnInterval = 300;
+   }
+   else{
+     spawnInterval = 500;
+   }
+ }
   
 }
