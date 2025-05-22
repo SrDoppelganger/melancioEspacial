@@ -15,6 +15,8 @@ int powerUpFrames;
 
 //variaveis de gameplay
 String cena;
+boolean bombUsed;
+int bombAnimation, bombDuration;
 
 //timer para spawnar inimigos
 int spawnTimer,spawnInterval;
@@ -44,6 +46,9 @@ void setup(){
   powerTimer = millis();
   powerInterval = 30000;
   
+  bombAnimation = millis();
+  bombDuration = 800;
+  
   p1 = new Player(width/2,550);
   bulletList = new ArrayList<Bullet>();
   enemyList = new ArrayList<Enemy>();
@@ -52,7 +57,8 @@ void setup(){
   
   //inicializa highscore
   highscore = 0;
-
+  
+  bombUsed = false;
   
   cena = "titulo";
 }
@@ -120,6 +126,16 @@ void gameLoop(){
   
   if(p1.isDead == true){
     cena = "gameOver";
+  }
+  
+  //faz a tela piscar quando o jogador usa uma bomba
+  if(bombUsed == true){
+    
+    fill(255);
+    rect(0,0,width,height);
+    if(millis() > bombAnimation + bombDuration){
+      bombUsed = false;
+    }
   }
 }
 
@@ -196,9 +212,11 @@ void bulletLogic(){
 
 void bombLogic(){
   p1.bombs -= 1;
+  bombUsed = true;
+  bombAnimation = millis();
   
   //remove todos os inimigos da tela e aumenta o tempo de spawn de mais inimigos para melhor efeito
-  spawnTimer = millis() + 1000;
+  spawnTimer = millis() + 1500;
   for(int i = enemyList.size()-1; i>=0; i--){
     Enemy anEnemy = enemyList.get(i);
     enemyList.remove(anEnemy);
@@ -263,12 +281,14 @@ void powerUpLogic(){
     }
   }
   
-  //randomiza o tipo de power up
-  int randType = round(random(0,1));
-  String chosenType = powerUpTypes[randType];
+  
   //spawna um upgrade a cada 30 segundos
   int randX = round(random(40,440));
   if(powerUpList.size() < 1 && millis() > powerTimer + powerInterval){
+    //randomiza o tipo de power up
+    int randType = round(random(0,1));
+    String chosenType = powerUpTypes[randType];
+    
     PowerUp power = new PowerUp(randX,0,chosenType);
     powerUpList.add(power);
     powerTimer = millis();
