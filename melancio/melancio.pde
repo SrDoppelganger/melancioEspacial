@@ -60,13 +60,16 @@ void setup(){
   
   bombUsed = false;
   
-  cena = "titulo";
+  cena = "dificuldades";
 }
 
 
 void draw(){
   if(cena == "titulo"){
     titleScreen();
+  }
+  if(cena == "dificuldades"){
+    selectionScreen();
   }
   if(cena == "jogo"){
     gameLoop();
@@ -185,6 +188,49 @@ void gameOverScreen(){
   
   fill(255);
   text("pressione espaço para continuar",width/2,550);
+}
+
+void selectionScreen(){
+  background(0,0,14);
+  
+  textFont(fontBold);
+  textSize(48);
+  textAlign(CENTER);
+  fill(255);
+  text("Escolha a Dificuldade",width/2,50);
+  
+  strokeWeight(2);
+  
+  stroke(0,255,0);
+  noFill();
+  rect(30,150,300,100);
+  
+  stroke(0,0,255);
+  noFill();
+  rect(80,275,300,100);
+  
+  stroke(255,0,0);
+  noFill();
+  rect(130,400,300,100);
+  
+  textFont(font);
+  textAlign(LEFT);
+  textSize(24);
+  fill(255);
+  
+  text("1-Facil\n     5 vidas\n     3 bombas",40,175);
+  
+  text("2-Médio\n     3 vidas\n     1 bombas",90,300);
+  text("3-Difícil\n     2 vidas\n     0 bombas",140,425);
+  
+  
+  textAlign(RIGHT);
+  text("pontuação x1",320,240);
+  text("pontuação x2",370,365);
+  text("pontuação x3",420,490);
+  
+  textAlign(CENTER);
+  text("Pressione as teclas númericas para escolher", width/2, 600);
 }
 
 void bulletLogic(){
