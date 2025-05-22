@@ -67,6 +67,8 @@ class Enemy{
  void move(){
    y += speed;
    
+ 
+   
    left = x - enmWidth/2;
    right = x + enmWidth/2;
    top = y - enmHeight/2;
@@ -80,6 +82,7 @@ class Enemy{
      remove = true;
    }
  }
+ 
  
  void hitPlayer(Player p1){
     //checa se o inimigo atingiu o jogador, e se sim, remove o inimigo da tela

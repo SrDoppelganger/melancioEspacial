@@ -136,12 +136,23 @@ void gameLoop(){
   image(spaceBG,width/2,height/2);
   
   
-  textFont(font);
+  p1.render();
+  p1.move();
   
+  bulletLogic();
+  enemyLogic();
+  powerUpLogic();
+  
+  //HUD
+  textFont(font);
   textSize(24);
   textAlign(LEFT);
   fill(255);
   text("pontuação: "+nf(pontuacao,4),5,20);
+  
+  rectMode(CENTER);
+  fill(0);
+  rect(width/2,615,width,50);
   
   textSize(24);
   textAlign(LEFT);
@@ -158,12 +169,6 @@ void gameLoop(){
   fill(255);
   text(dificuldade,width/2,620);
   
-  p1.render();
-  p1.move();
-  
-  bulletLogic();
-  enemyLogic();
-  powerUpLogic();
   
   if(p1.isDead == true){
     cena = "gameOver";
@@ -190,12 +195,18 @@ void titleScreen(){
   textSize(48);
   textAlign(CENTER);
   fill(255);
-  text("Melâncio no Espaço",width/2,100);
+  text("Melâncio no Espaço:",width/2,100);
   
   textFont(font);
   textSize(32);
   fill(255,165,0);
   text("pressione espaço para jogar",width/2,575);
+  
+  textFont(fontBold);
+  textAlign(CENTER);
+  textSize(32);
+  fill(255);
+  text("Prelúdio Da Esperança",width/2,140);
   
   //achar um jeito melhor de fazer isso
   p1.resetStats();
