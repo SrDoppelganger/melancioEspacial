@@ -1,3 +1,5 @@
+import gifAnimation.*;
+
 //variaveis de classes 
 Player p1;
 ArrayList<Enemy> enemyList;
@@ -12,6 +14,10 @@ PImage powerUpSprites[];
 int playerFrames; 
 int enemyFrames;
 int powerUpFrames;
+
+PImage titleBG,altBG,lunaticBG;
+Gif spaceBG;
+PImage easyButton,mediumButton,hardButton,lunaticButton;
 
 //variaveis de gameplay
 String cena;
@@ -40,6 +46,8 @@ void setup(){
   font = createFont("PixelOperator.ttf",64);
   fontBold = createFont("PixelOperator-Bold.ttf",64);
   
+ 
+  loadAssets();
   loadSprites();
   
   //inicializa timers
@@ -107,10 +115,27 @@ void loadSprites(){
   }
 }
 
+void loadAssets(){
+   titleBG = loadImage("data/Assets/pde_title.png");
+   altBG = loadImage("data/Assets/pde_altScreen.png");
+   lunaticBG = loadImage("data/Assets/pde_lunaticScreen.png");
+   spaceBG = new Gif(this,"Assets/pde_mainBg.gif");
+   spaceBG.play();
+   
+   easyButton = loadImage("data/Assets/pde_easy.png");
+   mediumButton = loadImage("data/Assets/pde_medium.png");
+   hardButton = loadImage("data/Assets/pde_hard.png");
+   lunaticButton = loadImage("data/Assets/pde_lunatic.png");
+}
+
 void gameLoop(){
   pontuacao = pontos * multiplicador;
   
   background(0,0,14);
+  imageMode(CENTER);
+  image(spaceBG,width/2,height/2);
+  
+  
   textFont(font);
   
   textSize(24);
@@ -158,15 +183,19 @@ void gameLoop(){
 
 void titleScreen(){
   background(0,0,14);
+  imageMode(CENTER);
+  image(titleBG,width/2,height/2);
   
   textFont(fontBold);
   textSize(48);
   textAlign(CENTER);
+  fill(255);
   text("Melâncio no Espaço",width/2,100);
   
   textFont(font);
   textSize(32);
-  text("pressione espaço para jogar",width/2,550);
+  fill(255,165,0);
+  text("pressione espaço para jogar",width/2,575);
   
   //achar um jeito melhor de fazer isso
   p1.resetStats();
@@ -175,6 +204,9 @@ void titleScreen(){
 
 void gameOverScreen(){
   background(0,0,14);
+  imageMode(CENTER);
+  image(altBG,width/2,height/2);
+  
   getHighscore(pontuacao);
   lunatic = false;
   
@@ -187,31 +219,34 @@ void gameOverScreen(){
   textFont(font);
   textSize(32);
   fill(255,255,49);
-  text("Highscore: "+ nf(highscore,4), width/2,270);
+  text("Highscore: "+ nf(highscore,4), width/2,280);
   
   fill(255);
   text("Sua pontuação: "+ nf(pontuacao,4), width/2,height/2);
   
+  fill(255,165,0);
+  text("pressione espaço para continuar",width/2,550);
+  
   if(pontuacao >= 100 && dificuldade == "difícil"){
    textSize(24);
-   fill(125,0,125);
+   fill(255,0,0);
    text("cuidado com a tecla 4 na tela de dificuldade", width/2,620);
   }
   
   if(newHighscore == true){
+    textFont(fontBold);
     textSize(32);
     fill(255,67,164);
     text("Novo recorde!!!", width/2,400);
   }
   
   
-  
-  fill(255);
-  text("pressione espaço para continuar",width/2,550);
 }
 
 void selectionScreen(){
   background(0,0,14);
+  imageMode(CENTER);
+  image(altBG,width/2,height/2);
   
   textFont(fontBold);
   textSize(48);
@@ -220,41 +255,42 @@ void selectionScreen(){
   text("Escolha a Dificuldade",width/2,50);
   
   strokeWeight(2);
-  rectMode(CORNER);
+  imageMode(CORNER);
   
-  stroke(0,255,0);
-  noFill();
-  rect(30,150,300,100);
-  
-  stroke(0,0,255);
-  noFill();
-  rect(80,275,300,100);
-  
-  stroke(255,0,0);
-  noFill();
-  rect(130,400,300,100);
-  
+  image(easyButton,30,150,300,100);
+  image(mediumButton,80,275,300,100);
+  image(hardButton,130,400,300,100);
+
   textFont(font);
   textAlign(LEFT);
   textSize(24);
   fill(255);
   
-  text("1-Facil\n     5 vidas\n     3 bombas",40,175);
+  fill(1,68,33);
+  text("1-Fácil\n     5 vidas\n     3 bombas",40,175);
+  fill(28,40,65);
   text("2-Médio\n     3 vidas\n     1 bombas",90,300);
+  fill(20,0,0);
   text("3-Difícil\n     2 vidas\n     0 bombas",140,425);
   
   
   textAlign(RIGHT);
+  fill(1,68,33);
   text("pontuação x1",320,240);
+  fill(28,40,65);
   text("pontuação x2",370,365);
+  fill(20,0,0);
   text("pontuação x3",420,490);
   
   textAlign(CENTER);
-  text("Pressione as teclas númericas para escolher", width/2, 600);
+  fill(255,165,0);
+  text("Pressione as teclas númericas para escolher", width/2, 100);
 }
 
 void secretScreen(){
   background(0,0,14);
+  imageMode(CENTER);
+  image(lunaticBG,width/2,height/2);
   
   textFont(fontBold);
   textSize(48);
@@ -262,22 +298,20 @@ void secretScreen(){
   fill(255);
   text("Dificuldade Secreta",width/2,50);
   
-  rectMode(CENTER);
-  strokeWeight(2);
-  
-  stroke(128,0,128);
-  noFill();
-  rect(width/2,height/2,300,100);
-  
+
+  image(lunaticButton,width/2,height/2,300,100);
+ 
   textFont(font);
   textSize(24);
   textAlign(LEFT);
+  fill(230,230,250);
   text("4-Lunático\n     1 vidas\n     0 bombas",100,290);
   
   textAlign(RIGHT);
   text("pontuação x4",380,360);
   
   textAlign(CENTER);
+  fill(255);
   text("pressione Z para selecionar",width/2,600);
   text("pressione X para retornar",width/2,620);
 }
