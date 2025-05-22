@@ -192,6 +192,12 @@ void gameOverScreen(){
   fill(255);
   text("Sua pontuação: "+ nf(pontuacao,4), width/2,height/2);
   
+  if(pontuacao >= 100 && dificuldade == "difícil"){
+   textSize(24);
+   fill(125,0,125);
+   text("cuidado com a tecla 4 na tela de dificuldade", width/2,620);
+  }
+  
   if(newHighscore == true){
     textSize(32);
     fill(255,67,164);
