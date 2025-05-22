@@ -73,7 +73,7 @@ class PowerUp{
       p1.health += 1;
    }
    if(powerType == "bomb"){
-     println("vc pegou uma bomba! :3c");
+     p1.bombs += 1;
    }
  }
 

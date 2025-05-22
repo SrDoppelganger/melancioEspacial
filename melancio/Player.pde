@@ -9,6 +9,7 @@ int playerHeight;
 
 int speed;
 int health;
+int bombs;
 
 boolean movingLeft;
 boolean movingRight;
@@ -31,6 +32,7 @@ Player(int startingX, int startingY){
   
   speed = 10;
   health = 3;
+  bombs = 0;
   
   movingLeft = false;
   movingRight = false;

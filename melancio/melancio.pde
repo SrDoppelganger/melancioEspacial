@@ -1,4 +1,3 @@
-
 //variaveis de classes 
 Player p1;
 ArrayList<Enemy> enemyList;
@@ -106,6 +105,11 @@ void gameLoop(){
   textAlign(RIGHT);
   fill(255);
   text("vida:"+nf(p1.health,2),470,20);
+  
+  textSize(24);
+  textAlign(RIGHT);
+  fill(0,255,0);
+  text("bombas:"+nf(p1.bombs,2),470,600);
   
   p1.render();
   p1.move();
@@ -299,5 +303,10 @@ void keyReleased(){
   if(key == 'z'){
     //reseta animação de atirar
     p1.currFrame = 0;
+  }
+  if(key == 'x'){
+    //inserir lógica de bomba aqui
+    println("você usou uma bomba!");
+    p1.bombs -= 1;
   }
 }
