@@ -109,7 +109,12 @@ Player(int startingX, int startingY){
    pontos = 0;
  }
  
+ 
  void updateStats(String dificuldade){
+   //reseta timer de power ups para só começar na tela de jogo
+   powerTimer = millis();
+   println(powerTimer);
+   
    if(dificuldade == "fácil"){
      health = 5;
      bombs = 3;

@@ -4,6 +4,7 @@ import gifAnimation.*;
 Player p1;
 ArrayList<Enemy> enemyList;
 ArrayList<Bullet> bulletList;
+PowerUp powerUp;
 ArrayList<PowerUp> powerUpList;
 String[] powerUpTypes;
 
@@ -209,6 +210,7 @@ void titleScreen(){
   text("Prelúdio Da Esperança",width/2,140);
   
   //achar um jeito melhor de fazer isso
+  //lembrar de resetar o timer de power-ups em gameLoop()
   p1.resetStats();
   newHighscore = false;
 }
