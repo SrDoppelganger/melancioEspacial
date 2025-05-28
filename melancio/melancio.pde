@@ -1,4 +1,5 @@
 import gifAnimation.*;
+import processing.sound.*;
 
 //variaveis de classes 
 Player p1;
@@ -19,6 +20,8 @@ int powerUpFrames;
 PImage titleBG,altBG,lunaticBG;
 Gif spaceBG;
 PImage easyButton,mediumButton,hardButton,lunaticButton;
+
+SoundFile menu,gameMusic,acceptSound,deniedSound,hitSound,hurtSound,gunSound;
 
 //variaveis de gameplay
 String cena;
@@ -127,6 +130,16 @@ void loadAssets(){
    mediumButton = loadImage("data/Assets/pde_medium.png");
    hardButton = loadImage("data/Assets/pde_hard.png");
    lunaticButton = loadImage("data/Assets/pde_lunatic.png");
+   
+   //variaveis de sons e músicas
+   menu = new SoundFile(this,"data/Audio/musica_menu.mp3");
+   gameMusic = new SoundFile(this,"data/Audio/musica_fase.mp3");
+   acceptSound = new SoundFile(this,"data/Audio/accept.mp3");
+   deniedSound = new SoundFile(this,"data/Audio/denied.mp3");
+   hitSound = new SoundFile(this,"data/Audio/hit.mp3");
+   hurtSound = new SoundFile(this,"data/Audio/hurt.mp3");
+   gunSound = new SoundFile(this,"data/Audio/arma.mp3");
+   
 }
 
 void gameLoop(){
@@ -216,6 +229,8 @@ void titleScreen(){
 }
 
 void gameOverScreen(){
+  gameMusic.stop();
+  
   background(0,0,14);
   imageMode(CENTER);
   image(altBG,width/2,height/2);
@@ -393,6 +408,8 @@ void enemyLogic(){
     if(anEnemy.isDead == true){
       enemyList.remove(anEnemy);
       pontos++;
+      hitSound.play();
+      hitSound.amp(0.5);
     }
     if(anEnemy.remove == true){
       enemyList.remove(anEnemy);
@@ -466,9 +483,10 @@ void keyPressed(){
   if(keyCode == RIGHT){
     p1.movingRight = true;
   }
-  if(key == 'z'){
+  if(key == 'z' && cena == "jogo"){
     bulletList.add(new Bullet(p1.x,p1.y - 40));
     p1.shootingAnim();
+    gunSound.play();
   }
   if(key == ' ' && cena == "titulo"){
     cena = "dificuldades";
@@ -478,18 +496,21 @@ void keyPressed(){
     p1.updateStats(dificuldade);
     multiplicador = 1;
     cena = "jogo";
+    gameMusic.loop(1);
   }
   if(key == '2' && cena == "dificuldades"){
     dificuldade = "médio";
     p1.updateStats(dificuldade);
     multiplicador = 2;
     cena = "jogo";
+    gameMusic.loop(1);
   }
   if(key == '3' && cena == "dificuldades"){
     dificuldade = "difícil";
     p1.updateStats(dificuldade);
     multiplicador = 3;
     cena = "jogo";
+    gameMusic.loop(1);
   }
   if(key == '4' && cena == "dificuldades"){
     cena = " ";
@@ -500,6 +521,7 @@ void keyPressed(){
     multiplicador = 4;
     lunatic = true;
     cena = "jogo";
+    gameMusic.loop(1);
   }
   if(key == 'x' && cena == " "){
     cena = "dificuldades";
