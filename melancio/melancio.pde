@@ -241,9 +241,10 @@ void gameOverScreen(){
   text("pressione espaço para continuar",width/2,550);
   
   if(pontuacao >= 100 && dificuldade == "difícil"){
+   textFont(fontBold);
    textSize(24);
    fill(255,0,0);
-   text("cuidado com a tecla 4 na tela de dificuldade", width/2,620);
+   text("cuidado com a tecla 4 na tela de dificuldade", width/2,430);
   }
   
   if(newHighscore == true){
