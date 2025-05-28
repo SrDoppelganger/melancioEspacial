@@ -384,6 +384,7 @@ void bombLogic(){
   p1.bombs -= 1;
   bombUsed = true;
   bombAnimation = millis();
+  hitSound.play();
   
   //remove todos os inimigos da tela e aumenta o tempo de spawn de mais inimigos para melhor efeito
   spawnTimer = millis() + 1500;
@@ -414,6 +415,7 @@ void enemyLogic(){
       pontos++;
       hitSound.play();
       hitSound.amp(0.5);
+      hitSound.rate(1);
     }
     if(anEnemy.remove == true){
       enemyList.remove(anEnemy);
@@ -556,5 +558,6 @@ void keyReleased(){
   }
   if(key == 'x' && p1.bombs > 0){
     bombLogic();
+    hitSound.rate(0.2);
   }
 }

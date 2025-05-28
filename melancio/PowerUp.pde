@@ -70,9 +70,11 @@ class PowerUp{
  
  void givePowerUp(String powerType){
    if(powerType == "health"){
+      acceptSound.play();
       p1.health += 1;
    }
    if(powerType == "bomb"){
+     acceptSound.play();
      p1.bombs += 1;
    }
  }

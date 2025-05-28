@@ -90,6 +90,7 @@ class Enemy{
       //substituir por -= damage dps
       p1.health -= 1;
       remove = true;
+      hurtSound.play();
     }
  }
  
