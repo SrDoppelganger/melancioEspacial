@@ -76,6 +76,7 @@ void setup(){
   bombUsed = false;
   
   cena = "titulo";
+  menu.loop(1);
 }
 
 
@@ -143,6 +144,7 @@ void loadAssets(){
 }
 
 void gameLoop(){
+  menu.stop();
   pontuacao = pontos * multiplicador;
   
   background(0,0,14);
@@ -186,6 +188,7 @@ void gameLoop(){
   
   if(p1.isDead == true){
     cena = "gameOver";
+    menu.loop(1);
   }
   
   //faz a tela piscar quando o jogador usa uma bomba
@@ -230,6 +233,7 @@ void titleScreen(){
 
 void gameOverScreen(){
   gameMusic.stop();
+
   
   background(0,0,14);
   imageMode(CENTER);
@@ -489,6 +493,7 @@ void keyPressed(){
     gunSound.play();
   }
   if(key == ' ' && cena == "titulo"){
+    acceptSound.play();
     cena = "dificuldades";
   }
   if(key == '1' && cena == "dificuldades"){
@@ -496,6 +501,7 @@ void keyPressed(){
     p1.updateStats(dificuldade);
     multiplicador = 1;
     cena = "jogo";
+    acceptSound.play();
     gameMusic.loop(1);
   }
   if(key == '2' && cena == "dificuldades"){
@@ -503,6 +509,7 @@ void keyPressed(){
     p1.updateStats(dificuldade);
     multiplicador = 2;
     cena = "jogo";
+    acceptSound.play();
     gameMusic.loop(1);
   }
   if(key == '3' && cena == "dificuldades"){
@@ -510,9 +517,11 @@ void keyPressed(){
     p1.updateStats(dificuldade);
     multiplicador = 3;
     cena = "jogo";
+    acceptSound.play();
     gameMusic.loop(1);
   }
   if(key == '4' && cena == "dificuldades"){
+    acceptSound.play();
     cena = " ";
   }
   if(key == 'z' && cena == " "){
@@ -521,12 +530,15 @@ void keyPressed(){
     multiplicador = 4;
     lunatic = true;
     cena = "jogo";
+    acceptSound.play();
     gameMusic.loop(1);
   }
   if(key == 'x' && cena == " "){
+    deniedSound.play();
     cena = "dificuldades";
   }
   if(key == ' ' && cena == "gameOver"){
+    acceptSound.play();
     cena = "titulo";
   }
 }
